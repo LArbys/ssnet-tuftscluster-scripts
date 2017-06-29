@@ -73,11 +73,10 @@ echo "final output location: ${outfile_ssnet}" >> $logfile
 echo "RUNNING: python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
 
 # RUN
-python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file} >>& $logfile
+python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1
 
 # COPY DATA
-#cp $outfile_temp $outfile_ssnet
-
+cp $outfile_temp $outfile_ssnet
 
 # clean up
 #cd ../

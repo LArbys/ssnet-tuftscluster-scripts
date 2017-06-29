@@ -1,3 +1,5 @@
 inputlists/*
 jobidlist.txt
+rerunlist.txt
 *~
+slurm_ssnet_job*
