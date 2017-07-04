@@ -21,6 +21,7 @@ source /usr/local/bin/thisroot.sh
 
 # SSNet Example Software
 cd /usr/local/larbys/ssnet_example/sw/
+echo $PWD
 source ./setup.sh
 
 # go to job dir
@@ -43,17 +44,17 @@ let jobid=`sed -n ${proc_line}p ${jobid_list}`
 echo "JOBID ${jobid}"
 
 # make path to input list
-inputlist=`printf ${inputlist_dir}/inputlist_%03d.txt ${jobid}`
+inputlist=`printf ${inputlist_dir}/inputlist_%04d.txt ${jobid}`
 
 # get input files
 larcv_file=`sed -n 1p ${inputlist}`
 tagger_file=`sed -n 2p ${inputlist}`
 
-slurm_folder=`printf slurm_ssnet_job%03d ${jobid}`
+slurm_folder=`printf slurm_ssnet_job%04d ${jobid}`
 mkdir -p ${slurm_folder}
 
 # Make log file
-logfile=`printf ${slurm_folder}/log_%03d.txt ${jobid}`
+logfile=`printf ${slurm_folder}/log_%04d.txt ${jobid}`
 
 # echo into it
 echo "RUNNING SSNET JOB ${jobid}" > $logfile
@@ -61,22 +62,22 @@ echo "larcv file: ${larcv_file}" >> $logfile
 echo "tagger file: ${tagger_file}" >> $logfile
 
 # temp output file
-outfile_temp=`printf ${slurm_folder}/ssnet_out_%03d.root ${jobid}`
+outfile_temp=`printf ${slurm_folder}/ssnet_out_%04d.root ${jobid}`
 
 echo "temporary output file: ${outfile_temp}" >> $logfile
 
 # define output
-outfile_ssnet=`printf ${output_dir}/ssnetout_larcv_%03d.root ${jobid}`
+outfile_ssnet=`printf ${output_dir}/ssnetout_larcv_%04d.root ${jobid}`
 echo "final output location: ${outfile_ssnet}" >> $logfile
 
 # command
 echo "RUNNING: python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
 
 # RUN
-python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file} >>& $logfile
+python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile
 
 # COPY DATA
-#cp $outfile_temp $outfile_ssnet
+cp $outfile_temp $outfile_ssnet
 
 
 # clean up

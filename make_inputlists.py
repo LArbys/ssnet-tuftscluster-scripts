@@ -1,8 +1,13 @@
 import os,sys
 
 # SPECIFY FOLDER WHERE INPUT DATA LIVES
-LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8/calmod_mcc8_bnb_nu_cosmic_v06_26_01_run01.09000_run01.09399_v01_p00_out"
-TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/out/mcc8numu/"
+# numu
+#LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8/calmod_mcc8_bnb_nu_cosmic_v06_26_01_run01.09000_run01.09399_v01_p00_out"
+#TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/out/mcc8numu/"
+
+# mcc8 nue test
+LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8/nue_intrinsics_fid10/supera"
+TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8/nue_intrinsics_fid10/out_week0619/tagger/"
 
 # We parse folder contents for larcv and larlite files
 # We keep them in a dictionary
@@ -37,9 +42,10 @@ fileid_list.sort()
 
 jobidlist = open("jobidlist.txt",'w')
 os.system("mkdir -p inputlists")
+os.system("rm -f inputlists/*")
 for jobid,fileid in enumerate(fileid_list):
     if len(job_dict[fileid]["larcv"])==1 and len(job_dict[fileid]["tagger"])==1:
-        flarcv = open("inputlists/inputlist_%03d.txt"%(fileid),'w')
+        flarcv = open("inputlists/inputlist_%04d.txt"%(fileid),'w')
         print >> flarcv,job_dict[fileid]["larcv"][0]
         print >> flarcv,job_dict[fileid]["tagger"][0]
         flarcv.close()    
