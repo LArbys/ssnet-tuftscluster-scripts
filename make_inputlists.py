@@ -14,9 +14,13 @@ import os,sys
 #LARCV_SOURCE="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/supera"
 #TAGGER_SOURCE="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week0626/tagger"
 
-# MC88 NUE-ONLY: Tufts
-LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/supera"
-TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/out_week0626/tagger"
+# MCC8.1 NUE-ONLY: Tufts
+#LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/supera"
+#TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/out_week0626/tagger"
+
+# MCC8.1 NUMU+COSMICS: Tufts
+LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/supera"
+TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/out_week0626/tagger"
 
 # We parse folder contents for larcv and larlite files
 # We keep them in a dictionary
