@@ -11,7 +11,7 @@ import ROOT as rt
 #SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/out_week0626/ssnet"
 
 # MCC8.1 numu+cosmic: Tufts
-SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/out_week0626/ssnet"
+SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet"
 
 files = os.listdir(SSNET_FOLDER)
 
