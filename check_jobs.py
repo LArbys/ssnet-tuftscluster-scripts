@@ -72,6 +72,7 @@ for l in ljobid:
         rerun_list.append(jobid)
 fjobid.close()
 
+print "Remaining list: ",len(rerun_list)
 
 frerun = open("rerunlist.txt",'w')
 for jobid in rerun_list:
