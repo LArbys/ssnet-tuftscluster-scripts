@@ -5,8 +5,12 @@ import os,sys
 #TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/out/mcc8numu/"
 
 # NUE MCCAFFERY
-LARCV_SOURCE="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/supera"
-TAGGER_SOURCE="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week0626/tagger"
+#LARCV_SOURCE="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/supera"
+#TAGGER_SOURCE="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week0626/tagger"
+
+# CORSIKA MCCAFFERY
+#LARCV_SOURCE="/home/taritree/larbys/data/mcc8.1/corsika_mc/supera"
+#TAGGER_SOURCE="/home/taritree/larbys/data/mcc8.1/corsika_mc/out_week0626/tagger"
 
 # We parse folder contents for larcv and larlite files
 # We keep them in a dictionary
