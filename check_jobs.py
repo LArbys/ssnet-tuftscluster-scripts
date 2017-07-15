@@ -4,7 +4,17 @@ import ROOT as rt
 # Check job id list. Check output folder. Check that tagger output files have entries (and same number of entries)
 # based on checks, will produce rerun list
 
-SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week0626/ssnet"
+# MCC8.1 nue+cosmic: Maccfrey
+#SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week0626/ssnet"
+
+# MCC8.1 nue+cosmic: Maccfrey
+SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_1eNpfiltered/out_week071017/ssnet"
+
+# MCC8.1 nue only: Tufts
+#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/out_week0626/ssnet"
+
+# MCC8.1 numu+cosmic: Tufts
+#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet"
 
 files = os.listdir(SSNET_FOLDER)
 
@@ -14,7 +24,7 @@ for f in files:
     idnum = int(f.split("_")[-1].split(".")[0])
     if idnum not in file_dict:
         file_dict[idnum] = {"larcv":None,"larlite":None}
-    if "larcv" in f:
+    if "larcv" in f or "ssnet_out" in f:
         file_dict[idnum]["larcv"] = SSNET_FOLDER+"/"+f
     elif "larlite" in f:
         file_dict[idnum]["larlite"] = SSNET_FOLDER+"/"+f
@@ -22,11 +32,13 @@ for f in files:
 ids = file_dict.keys()
 ids.sort()
 
+
 rerun_list = []
 good_list = []
 for fid in ids:
     try:
         rfile_larcv = rt.TFile( file_dict[fid]["larcv"] )
+
         tree = rfile_larcv.Get("image2d_wire_tree")
         nentries_larcv = tree.GetEntries()
 
@@ -45,6 +57,7 @@ for fid in ids:
         
         good_list.append(fid)
     except:
+        print "Not ok: ",fid
         rerun_list.append(fid)
         continue
 
@@ -62,6 +75,7 @@ for l in ljobid:
         rerun_list.append(jobid)
 fjobid.close()
 
+print "Remaining list: ",len(rerun_list)
 
 frerun = open("rerunlist.txt",'w')
 for jobid in rerun_list:
