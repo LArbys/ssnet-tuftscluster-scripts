@@ -5,13 +5,12 @@ os.environ['GLOG_minloglevel'] = '2' # set message level to warning
 
 # Check GPU availability before heavy lib loading
 #from choose_gpu import pick_gpu
-#GPUMEM = 5000
+#GPUMEM = 10000
 #GPUID = pick_gpu(mem_min=GPUMEM,caffe_gpuid=True)
 #if GPUID < 0:
 #    sys.stderr.write('No GPU available with memory > %d\n' % GPUMEM)
 #    sys.stderr.flush()
 #    sys.exit(1)
-#GPUID = 0
 
 import numpy as np
 import ROOT as rt
@@ -32,9 +31,9 @@ MASK_ADC = True
 MASK_THRESH = 10.
 SKIP_CH = [0]
 
-MODELMAP={'plane0' : 'uresnet64_plane0_iter_8000.caffemodel.h5',
-          'plane1' : 'uresnet64_plane1_iter_8000.caffemodel.h5',
-          'plane2' : 'uresnet64_plane2_iter_8000.caffemodel.h5'}
+MODELMAP={'plane0' : 'pretrain_segmentation_tskeyspweights_plane0.caffemodel.h5',
+          'plane1' : 'pretrain_segmentation_tskeyspweights_plane0.caffemodel.h5',
+          'plane2' : 'pretrain_segmentation_tskeyspweights_plane0.caffemodel.h5'}
 PLANEID=''
 MODEL=''
 OUTFILESTEM='larcv_fcn'
@@ -76,10 +75,12 @@ out_proc.initialize()
 in_proc = larcv.ProcessDriver('InputProcessDriver')
 in_proc.configure(INCFG)
 in_proc.override_input_file(flist)
+
 # put copy of input file in same folder as output
 inputcopy_path = os.path.dirname( '%s_%s.root'%(OUTFILESTEM,PLANEID) ) + "/ssnet_input.root"
 in_proc.override_output_file(inputcopy_path)
 in_proc.initialize()
+
 cropper = in_proc.process_ptr(in_proc.process_id("MultiROICropper"))
 il._rows = cropper.target_rows()
 il._cols = cropper.target_cols()
@@ -104,11 +105,10 @@ while event_counter < num_events:
     img_v = cropper.get_cropped_image()
     sys.stdout.write('Processing entry %d/%d w/ %d ROIs        \r' % (event_counter,num_events,img_v.size()))
     sys.stdout.flush()
-
-
+    
     num_roi += img_v.size()
     if img_v.size() > 0: num_event_with_roi+=1
-    else:
+    else: 
         # --------------------------------------------------------------------------------------
         # block in container processing to handle empty images
         in_proc.io().read_entry(event_counter,True)
