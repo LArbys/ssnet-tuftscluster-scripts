@@ -8,7 +8,8 @@ WORKDIR=/home/taritree/dllee_integration/ssnet-tuftscluster-scripts
 INPUTLISTS=${WORKDIR}/inputlists
 JOBIDLIST=${WORKDIR}/rerunlist.txt
 
-OUTDIR=/home/taritree/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet/
+#OUTDIR=/home/taritree/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet/
+OUTDIR=/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/ssnet_mcc8/
 
 mkdir -p $OUTDIR
 

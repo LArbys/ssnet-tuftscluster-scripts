@@ -5,16 +5,19 @@ import ROOT as rt
 # based on checks, will produce rerun list
 
 # MCC8.1 nue+cosmic: Maccfrey
-#SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week0626/ssnet"
+SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/ssnet_mcc8"
 
-# MCC8.1 nue+cosmic: Maccfrey
-#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_1eNpfiltered/out_week071017/ssnet"
+# MCC8.1 nue+cosmic: Tufts
+#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/ssnet_mcc8"
 
 # MCC8.1 nue only: Tufts
 #SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/out_week0626/ssnet"
 
 # MCC8.1 numu+cosmic: Tufts
-SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet"
+#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet"
+
+# MCC8.1 numu+cosmic: Mccaffrey
+#SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet"
 
 files = os.listdir(SSNET_FOLDER)
 
@@ -29,6 +32,16 @@ for f in files:
     elif "larlite" in f:
         file_dict[idnum]["larlite"] = SSNET_FOLDER+"/"+f
 
+# Parse current folders
+jobfolders = os.listdir(".")
+runningids = []
+for f in jobfolders:
+    if "slurm_ssnet_job" not in f:
+        continue
+    runid = int(f.split("_")[-1][3:])
+    print runid
+    runningids.append(runid)
+        
 ids = file_dict.keys()
 ids.sort()
 
@@ -76,6 +89,12 @@ for l in ljobid:
 fjobid.close()
 
 print "Remaining list: ",len(rerun_list)
+
+for runid in runningids:
+    if runid in rerun_list:
+        print "Running Job?: ",runid
+        rerun_list.remove(runid)
+print "Remaining after running jobs removed: ",len(rerun_list)
 
 frerun = open("rerunlist.txt",'w')
 for jobid in rerun_list:
