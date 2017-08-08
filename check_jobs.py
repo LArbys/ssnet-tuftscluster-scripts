@@ -5,7 +5,7 @@ import ROOT as rt
 # based on checks, will produce rerun list
 
 # MCC8.1 nue+cosmic: Maccfrey
-SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/ssnet_mcc8"
+#SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/ssnet_mcc8"
 
 # MCC8.1 nue+cosmic: Tufts
 #SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/ssnet_mcc8"
@@ -18,6 +18,10 @@ SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/
 
 # MCC8.1 numu+cosmic: Mccaffrey
 #SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet"
+
+# MCC8.1 nue+cosmic: Tufts
+SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/out_week080717/ssnet_mcc7"
+
 
 files = os.listdir(SSNET_FOLDER)
 

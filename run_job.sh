@@ -71,17 +71,17 @@ outfile_ssnet=`printf ${output_dir}/ssnetout_larcv_%04d.root ${jobid}`
 echo "final output location: ${outfile_ssnet}" >> $logfile
 
 # command
-#echo "RUNNING: python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
-echo "RUNNING: python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
+echo "RUNNING: python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
+#echo "RUNNING: python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
 
 # RUN
-#python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1
-python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1
+python run_ssnet.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1 || exit
+#python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1
 #python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file}
 
 # COPY DATA
 cp $outfile_temp $outfile_ssnet
 
 # clean up
-#cd ../
-#rm -r $slurm_folder
+cd ../
+rm -r $slurm_folder
