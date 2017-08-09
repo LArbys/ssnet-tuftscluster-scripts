@@ -1,27 +1,28 @@
-import matplotlib 
-matplotlib.use('Agg')
 import os,sys,time
-os.environ['GLOG_minloglevel'] = '2' # set message level to warning 
+
+import ROOT as rt
+rt.gSystem.Load("libGeo2D_Core.so")
+from larcv import larcv
+import caffe
+from caffe.image2d_data_layer import Image2DLayer as il
 
 # Check GPU availability before heavy lib loading
 from choose_gpu import pick_gpu
-GPUMEM = 5000
+GPUMEM = 10000
 GPUID = pick_gpu(mem_min=GPUMEM,caffe_gpuid=True)
 if GPUID < 0:
     sys.stderr.write('No GPU available with memory > %d\n' % GPUMEM)
     sys.stderr.flush()
     sys.exit(1)
-GPUID = 0
+
+caffe.set_device(GPUID)
+caffe.set_mode_gpu()
 
 import numpy as np
-import ROOT as rt
-rt.gSystem.Load("libGeo2D_Core.so")
-from ROOT import larcv
+#import matplotlib 
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from caffe.image2d_data_layer import Image2DLayer as il
-import caffe
-#caffe.set_mode_cpu()
-caffe.set_device(GPUID)
+os.environ['GLOG_minloglevel'] = '2' # set message level to warning 
 
 print "MODULES LOADED"
 

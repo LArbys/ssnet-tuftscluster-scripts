@@ -25,8 +25,8 @@ for plane in ['plane0','plane1','plane2']:
     try:
         print 'Processing',plane
         fname_stem = outfile.replace(".root","")
-        #cmd = 'python pyana_gpu.py pyana.prototxt %s %s '%(fname_stem, plane)
-        cmd = 'gdb -ex=r -ex=bt --args python pyana_gpu.py pyana.prototxt %s %s '%(fname_stem, plane)
+        cmd = 'python pyana_gpu.py pyana.prototxt %s %s '%(fname_stem, plane)
+        #cmd = 'gdb -ex=r -ex=bt --args python pyana_gpu.py pyana.prototxt %s %s '%(fname_stem, plane)
         for f in flist:
             cmd += '%s ' % f
 

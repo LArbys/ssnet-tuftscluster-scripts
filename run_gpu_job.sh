@@ -79,8 +79,8 @@ echo "RUNNING: python run_ssnet_gpu.py ${outfile_temp} ${larcv_file} ${tagger_fi
 #echo "RUNNING: python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
 
 # RUN
-#python run_ssnet_gpu.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1 || exit
-python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1 || exit
+python run_ssnet_gpu.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1 || exit
+#python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1 || exit
 #python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file}
 
 # COPY DATA
