@@ -30,6 +30,7 @@ def pick_gpu(mem_min=1,caffe_gpuid=False):
     gpu_info = ls_gpu()
     for gpu in gpu_info[0]:
         mem_available = gpu_info[1][gpu] - gpu_info[0][gpu]
+        print "GPU #",gpu," mem available: ",mem_available
         if mem_available > mem_min:
             if caffe_gpuid:
                 return (len(gpu_info[0])-1) - gpu

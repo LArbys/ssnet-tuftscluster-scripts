@@ -26,7 +26,7 @@ datafolder="/home/taritree/larbys/data"
 #SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/out_week080717/ssnet_mcc7"
 
 # Comparison samples
-SSNET_FOLDER=datafolder+"/comparison_samples/1mu1p/out_week080717/ssnet_mcc7"
+SSNET_FOLDER=datafolder+"/comparison_samples/1mu1p/out_week080717/ssnet_mcc8"
 
 
 files = os.listdir(SSNET_FOLDER)

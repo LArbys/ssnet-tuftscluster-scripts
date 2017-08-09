@@ -1,31 +1,57 @@
-import os,sys,time
+# import os,sys,time
 
-import ROOT as rt
-rt.gSystem.Load("libGeo2D_Core.so")
-from larcv import larcv
+# import ROOT as rt
+# rt.gSystem.Load("libGeo2D_Core.so")
+# from larcv import larcv
+# import caffe
+# from caffe.image2d_data_layer import Image2DLayer as il
+# caffe.set_mode_gpu()
+
+# # Check GPU availability before heavy lib loading
+# from choose_gpu import pick_gpu
+# GPUMEM = 10000
+# #GPUID = pick_gpu(mem_min=GPUMEM,caffe_gpuid=True)
+# GPUID=0
+# if GPUID < 0:
+#     sys.stderr.write('No GPU available with memory > %d\n' % GPUMEM)
+#     sys.stderr.flush()
+#     sys.exit(1)
+
+# caffe.set_device(GPUID)
+
+
+# import numpy as np
+# #import matplotlib 
+# #matplotlib.use('Agg')
+# import matplotlib.pyplot as plt
+# os.environ['GLOG_minloglevel'] = '2' # set message level to warning 
+
+# print "MODULES LOADED"
+
+# VICS LOADING
+from ROOT import geo2d
 import caffe
+import matplotlib
+matplotlib.use('agg')
+import os,sys,time
+os.environ["GLOG_minloglevel"]='2'
+import numpy as np
+import ROOT as rt
+from ROOT import larcv
+import matplotlib.pyplot as plt
 from caffe.image2d_data_layer import Image2DLayer as il
-caffe.set_mode_gpu()
 
 # Check GPU availability before heavy lib loading
 from choose_gpu import pick_gpu
-GPUMEM = 10000
+GPUMEM = 6000
 GPUID = pick_gpu(mem_min=GPUMEM,caffe_gpuid=True)
 if GPUID < 0:
     sys.stderr.write('No GPU available with memory > %d\n' % GPUMEM)
     sys.stderr.flush()
     sys.exit(1)
-
 caffe.set_device(GPUID)
+caffe.set_mode_gpu()
 
-
-import numpy as np
-#import matplotlib 
-#matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-os.environ['GLOG_minloglevel'] = '2' # set message level to warning 
-
-print "MODULES LOADED"
 
 PROTO  = None
 MODEL  = None
