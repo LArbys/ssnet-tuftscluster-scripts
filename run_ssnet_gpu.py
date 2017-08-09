@@ -20,11 +20,13 @@ for argv in sys.argv:
 
 outlist=[]
 ERROR=False
+input_copy_dir=os.path.dirname(outfile)
 for plane in ['plane0','plane1','plane2']:
     try:
         print 'Processing',plane
         fname_stem = outfile.replace(".root","")
-        cmd = 'python pyana_gpu.py pyana.prototxt %s %s '%(fname_stem, plane)
+        #cmd = 'python pyana_gpu.py pyana.prototxt %s %s '%(fname_stem, plane)
+        cmd = 'gdb -ex=r -ex=bt --args python pyana_gpu.py pyana.prototxt %s %s '%(fname_stem, plane)
         for f in flist:
             cmd += '%s ' % f
 
@@ -49,10 +51,10 @@ for plane in ['plane0','plane1','plane2']:
         ERROR=True
         break
 if ERROR:
-    if os.path.isfile('ssnet_input.root'):
-        os.remove('ssnet_input.root')
+    if os.path.isfile(input_copy_dir+'/ssnet_input.root'):
+        os.remove(input_copy_dir+'/ssnet_input.root')
     sys.exit(1)
-outlist.append('ssnet_input.root')
+outlist.append(input_copy_dir+'/ssnet_input.root')
 cmd='hadd %s ' % outfile
 print cmd
 for f in outlist:

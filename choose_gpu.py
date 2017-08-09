@@ -36,3 +36,8 @@ def pick_gpu(mem_min=1,caffe_gpuid=False):
             else:
                 return gpu
     return -1
+
+if __name__=="__main__":
+    print "ls_gpu()"
+    out = ls_gpu()
+    print out

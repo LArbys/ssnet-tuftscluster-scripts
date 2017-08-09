@@ -2,6 +2,8 @@ import os,sys
 
 # SPECIFY FOLDER WHERE INPUT DATA LIVES
 
+datafolder = "/home/taritree"
+
 # numu MCC 8.0
 #LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8/calmod_mcc8_bnb_nu_cosmic_v06_26_01_run01.09000_run01.09399_v01_p00_out"
 #TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/out/mcc8numu/"
@@ -38,8 +40,11 @@ import os,sys
 # ------------------
 
 # 1e1p
-LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/supera_links"
-TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/out_week080717/tagger"
+#LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/supera_links"
+#TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/out_week080717/tagger"
+
+LARCV_SOURCE=datafolder+"/larbys/data/comparison_samples/1mu1p/supera_links"
+TAGGER_SOURCE=datafolder+"/larbys/data/comparison_samples/1mu1p/out_week080717/tagger"
 
 
 # We parse folder contents for larcv and larlite files

@@ -1,4 +1,5 @@
 import os, sys
+import numpy as np
 
 flist=[]
 if len(sys.argv) < 3:
@@ -25,7 +26,8 @@ for plane in ['plane0','plane1','plane2']:
     try:
         print 'Processing',plane
         fname_stem = outfile.replace(".root","")
-        cmd = 'python pyana_mcc8.py pyana_mcc8.prototxt %s %s '%(fname_stem, plane)
+        #cmd = 'python pyana_mcc8_gpu.py pyana_mcc8.prototxt %s %s '%(fname_stem, plane)
+        cmd = 'gdb -ex=r -ex=bt --args python pyana_mcc8_gpu.py pyana_mcc8.prototxt %s %s '%(fname_stem, plane)
         for f in flist:
             cmd += '%s ' % f
 

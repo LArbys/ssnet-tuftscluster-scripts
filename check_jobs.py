@@ -1,6 +1,9 @@
 import os,sys
 import ROOT as rt
 
+
+datafolder="/home/taritree/larbys/data"
+
 # Check job id list. Check output folder. Check that tagger output files have entries (and same number of entries)
 # based on checks, will produce rerun list
 
@@ -20,7 +23,10 @@ import ROOT as rt
 #SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet"
 
 # MCC8.1 nue+cosmic: Tufts
-SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/out_week080717/ssnet_mcc7"
+#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/out_week080717/ssnet_mcc7"
+
+# Comparison samples
+SSNET_FOLDER=datafolder+"/comparison_samples/1mu1p/out_week080717/ssnet_mcc7"
 
 
 files = os.listdir(SSNET_FOLDER)
