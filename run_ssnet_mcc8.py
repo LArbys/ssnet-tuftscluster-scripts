@@ -2,31 +2,45 @@ import os, sys
 import numpy as np
 
 flist=[]
-if len(sys.argv) < 3:
-    print 'Usage:',sys.argv[0],'OUTPUT_FILE','INPUT_FILE0, INPUTFILE1, ...'
+if len(sys.argv) < 5:
+    print 'Usage:',sys.argv[0],'PROCID GPUID OUTPUT_FILE','INPUT_FILE0, INPUTFILE1, ...'
     sys.exit(1)
 
-outfile = sys.argv[1]
+# manage_gpu_job will track the status of this job using message in the log file
+PROCID=int(sys.argv[1])
+statusfile = open("job_ssnet_status_%d.txt"%(PROCID),'w')
+print>>statusfile,"LOADING"
+
+GPUID=int(sys.argv[2])
+
+outfile = sys.argv[3]
 if os.path.isfile(outfile):
     print 'output file already present:',outfile
+    print outfile
+    print >>statusfile,"ERROR"
     sys.exit(1)
 if outfile[-5:]!=".root":
     print "output file does not end with .root"
+    print outfile
+    print >>statusfile,"ERROR"
     sys.exit(1)
 
 for argv in sys.argv:
     if argv == outfile: continue
+    elif argv=="%d"%(PROCID): continue
     if not argv.endswith('.root'): continue
     flist.append(argv)
+
 
 outlist=[]
 ERROR=False
 input_copy_dir=os.path.dirname(outfile)
 for plane in ['plane0','plane1','plane2']:
+    print >>statusfile,plane
     try:
         print 'Processing',plane
         fname_stem = outfile.replace(".root","")
-        cmd = 'python pyana_mcc8_gpu.py pyana_mcc8.prototxt %s %s '%(fname_stem, plane)
+        cmd = 'python pyana_mcc8_gpu.py %d pyana_mcc8.prototxt %s %s '%(GPUID,fname_stem, plane)
         #cmd = 'gdb -ex=r -ex=bt --args python pyana_mcc8_gpu.py pyana_mcc8.prototxt %s %s '%(fname_stem, plane)
         for f in flist:
             cmd += '%s ' % f
@@ -50,10 +64,12 @@ for plane in ['plane0','plane1','plane2']:
         for f in outlist:
             os.remove(f)
         ERROR=True
+        print >>statusfile,"ERROR"
         break
 if ERROR:
     if os.path.isfile(input_copy_dir+'/ssnet_input.root'):
         os.remove(input_copy_dir+'/ssnet_input.root')
+    print >>statusfile,"ERROR"
     sys.exit(1)
 outlist.append(input_copy_dir+'/ssnet_input.root')
 cmd='hadd %s ' % outfile
@@ -64,4 +80,5 @@ os.system(cmd)
 
 for f in outlist:
     os.remove(f)
+print >>statusfile,"SUCCESS"
 sys.exit(0)

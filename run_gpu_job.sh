@@ -16,6 +16,7 @@ jobdir=$1
 inputlist_dir=$2
 output_dir=$3
 jobid_list=$4
+gpuid=$5
 
 # setup the container software
 # ----------------------------
@@ -76,16 +77,15 @@ echo "final output location: ${outfile_ssnet}" >> $logfile
 
 # command
 #echo "RUNNING: python run_ssnet_gpu.py ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
-echo "RUNNING: python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
+echo "RUNNING: python run_ssnet_mcc8.py ${jobid} ${gpuid} ${outfile_temp} ${larcv_file} ${tagger_file}" >> $logfile
 
 # RUN
 #python run_ssnet_gpu.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1 || exit
-python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1 || exit
-#python run_ssnet_mcc8.py ${outfile_temp} ${larcv_file} ${tagger_file}
+python run_ssnet_mcc8.py ${jobid} ${gpuid} ${outfile_temp} ${larcv_file} ${tagger_file} >> $logfile 2>&1 || exit
+
 
 # COPY DATA
 cp $outfile_temp $outfile_ssnet
 
 # clean up
-cd ../
 rm -r $slurm_folder

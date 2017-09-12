@@ -1,32 +1,42 @@
 import os,sys
 import ROOT as rt
 
+# SPECIFY FOLDER WHERE INPUT DATA LIVES
+# ------------------------------------------------------------------------
 
-datafolder="/home/taritree/larbys/data"
+TUFTS="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data"
+MCCAFFREY="/mnt/sdb/larbys/data"
+DAVIS="/media/data/larbys/data"
 
-# Check job id list. Check output folder. Check that tagger output files have entries (and same number of entries)
-# based on checks, will produce rerun list
+DATAFOLDER="__unset__"
+try:
+    LOCAL_MACHINE=os.popen("uname -n").readlines()[0].strip()
+    if LOCAL_MACHINE not in ["mccaffrey","login001","davis"]:
+        raise RuntimeError("unrecognized machine")
 
-# MCC8.1 nue+cosmic: Maccfrey
-#SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/ssnet_mcc8"
+    if LOCAL_MACHINE=="mccaffrey":
+        DATAFOLDER=MCCAFFREY
+    elif LOCAL_MACHINE=="login001":
+        DATAFOLDER=TUFTS
+    elif LOCAL_MACHINE=="davis":
+        DATAFOLDER=DAVIS
 
-# MCC8.1 nue+cosmic: Tufts
-#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/ssnet_mcc8"
+except:
+    print "Could not get machine name"
+    LOCAL_MACHINE=os.popen("uname -n").readlines()[0].strip()
+    print LOCAL_MACHINE
+    sys.exit(-1)
 
-# MCC8.1 nue only: Tufts
-#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/out_week0626/ssnet"
+if DATAFOLDER=="__unset__":
+    raise RuntimeError("Didnt set DATAFOLDER properly.")
 
-# MCC8.1 numu+cosmic: Tufts
-#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet"
 
-# MCC8.1 numu+cosmic: Mccaffrey
-#SSNET_FOLDER="/home/taritree/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet"
-
-# MCC8.1 nue+cosmic: Tufts
-#SSNET_FOLDER="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/out_week080717/ssnet_mcc7"
 
 # Comparison samples
-SSNET_FOLDER=datafolder+"/comparison_samples/1mu1p/out_week080717/ssnet_mcc8"
+#SSNET_FOLDER=DATAFOLDER+"/comparison_samples/1mu1p/out_week080717/ssnet_mcc8"
+#SSNET_FOLDER=DATAFOLDER+"/comparison_samples/ncpizero/out_week080717/ssnet_mcc8"
+#SSNET_FOLDER=DATAFOLDER+"/comparison_samples/extbnb/out_week082817/ssnet_mcc8"
+SSNET_FOLDER=DATAFOLDER+"/comparison_samples/corsika/out_week082817/ssnet_mcc8"
 
 
 files = os.listdir(SSNET_FOLDER)

@@ -41,18 +41,6 @@ from ROOT import larcv
 import matplotlib.pyplot as plt
 from caffe.image2d_data_layer import Image2DLayer as il
 
-# Check GPU availability before heavy lib loading
-from choose_gpu import pick_gpu
-GPUMEM = 6000
-GPUID = pick_gpu(mem_min=GPUMEM,caffe_gpuid=True)
-if GPUID < 0:
-    sys.stderr.write('No GPU available with memory > %d\n' % GPUMEM)
-    sys.stderr.flush()
-    sys.exit(1)
-caffe.set_device(GPUID)
-caffe.set_mode_gpu()
-
-
 PROTO  = None
 MODEL  = None
 OUTCFG = 'pyana_out.cfg'
@@ -66,6 +54,10 @@ MODELMAP={'plane0' : 'pretrain_segmentation_tskeyspweights_plane0.caffemodel.h5'
 PLANEID=''
 MODEL=''
 OUTFILESTEM='larcv_fcn'
+try:
+    GPUID = int(sys.argv[1])
+except:
+    raise Exception()
 
 flist=rt.std.vector('string')()
 for argv in sys.argv:
@@ -82,12 +74,27 @@ for argv in sys.argv:
     elif argv == 'plane2':
         PLANEID=argv
         MODEL=MODELMAP['plane2']
+    elif argv=="%d"%(GPUID):
+        continue
     else:
         OUTFILESTEM=argv
 
 if not PLANEID or not MODEL:
     print 'Valid plane id not provided!'
     raise Exception()
+
+# Check GPU availability before heavy lib loading
+from choose_gpu import pick_gpu
+GPUMEM = 6000
+if GPUID==-1:
+    GPUID = pick_gpu(mem_min=GPUMEM,caffe_gpuid=True)
+if GPUID < 0:
+    sys.stderr.write('No GPU available with memory > %d\n' % GPUMEM)
+    sys.stderr.flush()
+    raise Exception()
+    sys.exit(1)
+caffe.set_device(GPUID)
+caffe.set_mode_gpu()
 
 INCFG  = 'pyana_in_%s.cfg' % PLANEID
 print "Using input config:",INCFG
