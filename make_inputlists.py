@@ -1,40 +1,34 @@
 import os,sys
 
 # SPECIFY FOLDER WHERE INPUT DATA LIVES
+# ------------------------------------------------------------------------
 
-datafolder = "/home/taritree"
+TUFTS="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data"
+MCCAFFREY="/mnt/sdb/larbys/data"
+DAVIS="/media/data/larbys/data"
 
-# numu MCC 8.0
-#LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8/calmod_mcc8_bnb_nu_cosmic_v06_26_01_run01.09000_run01.09399_v01_p00_out"
-#TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/out/mcc8numu/"
+DATAFOLDER="__unset__"
+try:
+    LOCAL_MACHINE=os.popen("uname -n").readlines()[0].strip()
+    if LOCAL_MACHINE not in ["mccaffrey","login001","davis"]:
+        raise RuntimeError("unrecognized machine")
 
-# mcc8.0 nue test
-#LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8/nue_intrinsics_fid10/supera"
-#TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8/nue_intrinsics_fid10/out_week0619/tagger/"
+    if LOCAL_MACHINE=="mccaffrey":
+        DATAFOLDER=MCCAFFREY
+    elif LOCAL_MACHINE=="login001":
+        DATAFOLDER=TUFTS
+    elif LOCAL_MACHINE=="davis":
+        DATAFOLDER=DAVIS
 
-# NUE 8.1 NUE+COSMICS: MCCAFFERY
-#LARCV_SOURCE="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/supera"
-#TAGGER_SOURCE="/home/taritree/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/tagger"
+except:
+    print "Could not get machine name"
+    LOCAL_MACHINE=os.popen("uname -n").readlines()[0].strip()
+    print LOCAL_MACHINE
+    sys.exit(-1)
 
-# MCC8.1 NUE+COSMICS: Tufts
-#LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_1eNpfiltered/supera2"
-#TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_1eNpfiltered/out_week072517/tagger"
+if DATAFOLDER=="__unset__":
+    raise RuntimeError("Didnt set DATAFOLDER properly.")
 
-# MCC8.1 NUE-ONLY: Tufts
-#LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/supera"
-#TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/nue_nocosmic_1eNpfiltered/out_week0626/tagger"
-
-# MCC8.1 NUMU+COSMICS: Tufts
-#LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/supera"
-#TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/tagger"
-
-# MCC8.1 NUMU+COSMICS MCCAFFREY
-#LARCV_SOURCE="/home/taritree/larbys/data/mcc8.1/numu_1muNpfiltered/supera"
-#TAGGER_SOURCE="/home/taritree/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/tagger"
-
-# MCC8.1 CORSIKA: MCCAFFREY
-#LARCV_SOURCE="/home/taritree/larbys/data/mcc8.1/corsika_mc/supera"
-#TAGGER_SOURCE="/home/taritree/larbys/data/mcc8.1/corsika_mc/out_week0626/tagger"
 
 # COMPARISON SAMPLES
 # ------------------
@@ -43,8 +37,21 @@ datafolder = "/home/taritree"
 #LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/supera_links"
 #TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/out_week080717/tagger"
 
-LARCV_SOURCE=datafolder+"/larbys/data/comparison_samples/1mu1p/supera_links"
-TAGGER_SOURCE=datafolder+"/larbys/data/comparison_samples/1mu1p/out_week080717/tagger"
+#LARCV_SOURCE=DATAFOLDER+"/larbys/data/comparison_samples/inclusive_elec/supera_links"
+#TAGGER_SOURCE=DATAFOLDER+"/larbys/data/comparison_samples/inclusive_elec/out_week080717/tagger"
+
+#LARCV_SOURCE =DATAFOLDER+"/comparison_samples/ncpizero/supera_links"
+#TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/ncpizero/out_week080717/tagger"
+
+#LARCV_SOURCE =DATAFOLDER+"/comparison_samples/extbnb/supera_wpmtprecut"
+#TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/extbnb/out_week082817/tagger"
+
+#LARCV_SOURCE =DATAFOLDER+"/comparison_samples/corsika/supera_wpmtprecut"
+#TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/corsika/out_week082817/tagger"
+
+# 5e19 BNB sample (test). With PMT Precuts.
+LARCV_SOURCE =DATAFOLDER+"/bnbdata_5e19/supera"
+TAGGER_SOURCE=DATAFOLDER+"/bnbdata_5e19/out_week082817/tagger"
 
 
 # We parse folder contents for larcv and larlite files
@@ -69,6 +76,7 @@ for f in files:
     if ".root" not in f or "taggerout_larcv" not in f:
         continue
     fpath = TAGGER_SOURCE + "/" + f
+    #print fpath
     fileid = int(f.split(".")[-2].split("_")[-1])
     #print f.strip(),fileid
     if fileid not in job_dict:
@@ -77,6 +85,8 @@ for f in files:
 
 fileid_list = job_dict.keys()
 fileid_list.sort()
+
+print "Making input files for ",len(fileid_list)," jobs."
 
 jobidlist = open("jobidlist.txt",'w')
 os.system("mkdir -p inputlists")
