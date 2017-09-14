@@ -9,7 +9,8 @@ INPUTLISTS=${WORKDIR}/inputlists
 JOBIDLIST=${WORKDIR}/rerunlist.txt
 
 #OUTDIR=/home/taritree/larbys/data/mcc8.1/numu_1muNpfiltered/out_week071017/ssnet/
-OUTDIR=/home/taritree/larbys/data/comparison_samples/1mu1p/out_week080717/ssnet_mcc8/
+#OUTDIR=/home/taritree/larbys/data/comparison_samples/1mu1p/out_week080717/ssnet_mcc8/
+OUTDIR=
 
 mkdir -p $OUTDIR
 

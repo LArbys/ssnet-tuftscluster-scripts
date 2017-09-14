@@ -4,9 +4,9 @@ from choose_gpu import pick_gpu
 # This script is meant to shepard SSNET jobs through the available cards.
 # Currently, 3 SSNET jobs can fit on one card
 
-waitsec = 30
-MAX_NUM_JOBS=6
-MAX_JOBS_PER_GPU=3
+waitsec = 15
+MAX_NUM_JOBS=14
+MAX_JOBS_PER_GPU=7
 
 # first get jobid list
 
@@ -29,7 +29,7 @@ gpujobs = {0:[],
 # if memory available, we add a job. move id from jobids to runningids
 # we need to pick an X where there is enough time for the gpu to load the job. else we cause a disaster.
 
-while len(jobids)>0:
+while len(jobids)>0 or len(runningids)>0:
     # we check two things: 
     #  (1) there is available memory on a gpu
     #  (2) how many jobs are running
@@ -44,7 +44,7 @@ while len(jobids)>0:
         else:
             status = statuslines[-1].strip()
         print jobid,": ",status
-        if status in ["ERROR","DONE"]:
+        if status in ["ERROR","SUCCESS"]:
             runningids.remove(jobid)
             gpujobs[gpuslot[jobid]].remove(jobid)
     nrunning = len(runningids)
@@ -52,9 +52,10 @@ while len(jobids)>0:
     for gpuid in range(0,2):
         print "Number of GPU%d jobs: %d"%(gpuid,len(gpujobs[gpuid]))
     if nrunning>=MAX_NUM_JOBS:
-        time.sleep(waitsec)
         print "Max number of jobs. Waiting for jobs to complete."
         print "--------------------------------------------------"
+        time.sleep(waitsec)
+        continue
 
     #available_gpu = pick_gpu(mem_min=6000,caffe_gpuid=True)
     # we assign gpus by which are available

@@ -34,8 +34,8 @@ if DATAFOLDER=="__unset__":
 # ------------------
 
 # 1e1p
-#LARCV_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/supera_links"
-#TAGGER_SOURCE="/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_samples/1e1p/out_week080717/tagger"
+#LARCV_SOURCE=DATAFOLDER+"/comparison_samples/1e1p/supera_links"
+#TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/1e1p/out_week080717/tagger"
 
 #LARCV_SOURCE=DATAFOLDER+"/larbys/data/comparison_samples/inclusive_elec/supera_links"
 #TAGGER_SOURCE=DATAFOLDER+"/larbys/data/comparison_samples/inclusive_elec/out_week080717/tagger"
@@ -76,8 +76,11 @@ for f in files:
     if ".root" not in f or "taggerout_larcv" not in f:
         continue
     fpath = TAGGER_SOURCE + "/" + f
-    #print fpath
-    fileid = int(f.split(".")[-2].split("_")[-1])
+    try:
+        fileid = int(f.split(".")[-2].split("_")[-1])
+    except:
+        print "could not parse ",fpath
+        continue
     #print f.strip(),fileid
     if fileid not in job_dict:
         job_dict[fileid] = {"larcv":[],"tagger":[]}

@@ -4,3 +4,4 @@ rerunlist.txt
 *~
 slurm_ssnet_job*
 log_*_job.txt
+job_ssnet_status*

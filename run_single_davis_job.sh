@@ -11,7 +11,9 @@ DATAFOLDER=/media/data/larbys/data
 
 #OUTDIR=${DATAFOLDER}/comparison_samples/ncpizero/out_week080717/ssnet_mcc8/
 #OUTDIR=${DATAFOLDER}/comparison_samples/extbnb/out_week082817/ssnet_mcc8/
-OUTDIR=${DATAFOLDER}/comparison_samples/corsika/out_week082817/ssnet_mcc8/
+#OUTDIR=${DATAFOLDER}/comparison_samples/1e1p/out_week080717/ssnet_small_mcc8/
+#OUTDIR=${DATAFOLDER}/bnbdata_5e19/out_week082817/ssnet_mcc8/
+OUTDIR=${DATAFOLDER}/bnbdata_5e19/out_week082817/ssnet_small_mcc8/
 
 mkdir -p $OUTDIR
 
