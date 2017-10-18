@@ -45,13 +45,15 @@ if DATAFOLDER=="__unset__":
 
 #LARCV_SOURCE =DATAFOLDER+"/comparison_samples/extbnb/supera_wpmtprecut"
 #TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/extbnb/out_week082817/tagger"
+LARCV_SOURCE =DATAFOLDER+"/comparison_samples/extbnb_wprecuts/supera"
+TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/extbnb_wprecuts/out_week082817/tagger"
 
 #LARCV_SOURCE =DATAFOLDER+"/comparison_samples/corsika/supera_wpmtprecut"
 #TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/corsika/out_week082817/tagger"
 
 # 5e19 BNB sample (test). With PMT Precuts.
-LARCV_SOURCE =DATAFOLDER+"/bnbdata_5e19/supera"
-TAGGER_SOURCE=DATAFOLDER+"/bnbdata_5e19/out_week082817/tagger"
+#LARCV_SOURCE =DATAFOLDER+"/bnbdata_5e19/supera"
+#TAGGER_SOURCE=DATAFOLDER+"/bnbdata_5e19/out_week082817/tagger"
 
 
 # We parse folder contents for larcv and larlite files

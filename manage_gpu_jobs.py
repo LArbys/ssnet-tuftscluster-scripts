@@ -35,6 +35,7 @@ while len(jobids)>0 or len(runningids)>0:
     #  (2) how many jobs are running
     print "----------------------------------------"
     print "STATUS UPDATE"
+    print "Remaining jobs: ",len(jobids)
     for jobid in runningids:
         # report on status
         jobstatus = open("job_ssnet_status_%d.txt"%(jobid),'r')
@@ -57,24 +58,31 @@ while len(jobids)>0 or len(runningids)>0:
         time.sleep(waitsec)
         continue
 
-    #available_gpu = pick_gpu(mem_min=6000,caffe_gpuid=True)
-    # we assign gpus by which are available
-    available_gpu = -1
-    for gpuid in range(0,2):
-        if len(gpujobs[gpuid])<MAX_JOBS_PER_GPU:
-            available_gpu = gpuid
-    if available_gpu>=0:
-        print "Available GPU (",available_gpu,")"
-        jobid = jobids.pop()
-        procid = len(jobids)
-        os.system( "./run_single_davis_job.sh %d %d"%(procid,available_gpu) )
-        gpuslot[jobid] = available_gpu
-        gpujobs[available_gpu].append(jobid)
-        runningids.append(jobid)
-        runningprocs.append(procid)
-    else:
-        print "No space right now"
+
+    if len(jobids)==0 and nrunning==0:
+        print "============"
+        print "FINISHED!!!"
+        print "============"
+        break
+
+    if len(jobids)>0:
+        #available_gpu = pick_gpu(mem_min=6000,caffe_gpuid=True)
+        # we assign gpus by which are available
+        available_gpu = -1
+        for gpuid in range(0,2):
+            if len(gpujobs[gpuid])<MAX_JOBS_PER_GPU:
+                available_gpu = gpuid
+        if available_gpu>=0:
+            print "Available GPU (",available_gpu,")"
+            jobid = jobids.pop()
+            procid = len(jobids)
+            os.system( "./run_single_davis_job.sh %d %d"%(procid,available_gpu) )
+            gpuslot[jobid] = available_gpu
+            gpujobs[available_gpu].append(jobid)
+            runningids.append(jobid)
+            runningprocs.append(procid)
+        else:
+            print "No space right now"
     print "Now wait %d seconds for job to launch."%(waitsec)
-    print "Job IDs left: ",len(jobids)
     time.sleep(waitsec)
     
