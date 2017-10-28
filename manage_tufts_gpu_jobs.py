@@ -4,9 +4,15 @@ from choose_gpu import pick_gpu
 # This script is meant to shepard SSNET jobs through the available cards.
 # Currently, 3 SSNET jobs can fit on one card
 
+#INPUTLISTDIR = sys.argv[2]
+#OUTDIR = sys.argv[3]
+#JOBLIST = sys.argv[4]
+CONTAINER = sys.argv[1]
+WORKDIR = sys.argv[2]
+
 waitsec = 15
-MAX_NUM_JOBS=14
-MAX_JOBS_PER_GPU=7
+MAX_NUM_JOBS=6
+MAX_JOBS_PER_GPU=3
 
 # first get jobid list
 
@@ -83,7 +89,8 @@ while len(jobids)>0 or len(runningids)>0:
             jobid = jobids.pop()
             procid = len(jobids)
             #os.system( "./run_single_davis_job.sh %d %d"%(procid,available_gpu) )
-            os.system( "./run_single_tufts_job.sh %d %d"%(procid,available_gpu) )
+            #os.system( "./run_single_tufts_job.sh %d %d"%(procid,available_gpu) )
+            os.system( "singularity exec --nv %s bash -c \"cd %s && source setup_tufts_container.sh && cd %s && source run_single_tufts_job.sh %d %d\""%(CONTAINER,WORKDIR,WORKDIR,procid,available_gpu) )
             gpuslot[jobid] = available_gpu
             gpujobs[available_gpu].append(jobid)
             runningids.append(jobid)

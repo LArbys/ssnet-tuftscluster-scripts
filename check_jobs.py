@@ -37,9 +37,10 @@ if DATAFOLDER=="__unset__":
 #SSNET_FOLDER=DATAFOLDER+"/comparison_samples/1e1p/out_week080717/ssnet_small_mcc8"
 #SSNET_FOLDER=DATAFOLDER+"/comparison_samples/ncpizero/out_week080717/ssnet_mcc8"
 #SSNET_FOLDER=DATAFOLDER+"/comparison_samples/extbnb/out_week082817/ssnet_mcc8"
-SSNET_FOLDER=DATAFOLDER+"/comparison_samples/extbnb_wprecuts/out_week082817/ssnet_mcc8"
+#SSNET_FOLDER=DATAFOLDER+"/comparison_samples/extbnb_wprecuts/out_week082817/ssnet_mcc8"
 #SSNET_FOLDER=DATAFOLDER+"/comparison_samples/corsika/out_week082817/ssnet_mcc8"
 #SSNET_FOLDER=DATAFOLDER+"/bnbdata_5e19/out_week082817/ssnet_small_mcc8"
+SSNET_FOLDER=DATAFOLDER+"/comparison_samples/extbnb_wprecuts_reprocess/out_week10132017/ssnet_p09"
 
 
 files = os.listdir(SSNET_FOLDER)

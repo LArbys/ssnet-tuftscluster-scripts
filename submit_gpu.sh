@@ -1,11 +1,12 @@
 #!/bin/bash
 #
 #SBATCH --job-name=ssnet
-#SBATCH --output=ssnet_log.txt
-#
+#SBATCH --output=log_ssnet.txt
+#SBATCH -p gpu
 #SBATCH --ntasks=1
 #SBATCH --time=8:00:00
 #SBATCH --mem-per-cpu=8000
+#SBATCH --nodelist=pgpu01
 
 #CONTAINER=/cluster/kappa/90-days-archive/wongjiradlab/larbys/images/singularity-dllee-ubuntu/singularity-dllee-ssnet.img
 #CONTAINER=/cluster/kappa/90-days-archive/wongjiradlab/larbys/images/singularity-dllee-ubuntu/singularity-dllee-ssnet-nvidia375.39-cpuonly.img
@@ -18,4 +19,5 @@ OUTDIR=/cluster/kappa/90-days-archive/wongjiradlab/larbys/data/comparison_sample
 
 module load singularity
 
-singularity exec ${CONTAINER} bash -c "export SLURM_PROCID=1 && cd ${WORKDIR} && source run_job.sh ${WORKDIR} ${INPUTLISTDIR} ${OUTDIR} ${JOBLIST}"
+#singularity exec --nv ${CONTAINER} bash -c "cd ${WORKDIR} && source run_tuftsgrid_ssnet.sh ${WORKDIR} ${INPUTLISTDIR} ${OUTDIR} ${JOBLIST}"
+python manage_tufts_gpu_jobs.py ${CONTAINER} ${WORKDIR}
