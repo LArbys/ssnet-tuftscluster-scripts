@@ -207,9 +207,17 @@ while event_counter < num_events:
     if stop_counter and event_counter >= stop_counter:
         break
 
-frac_event_with_roi = (int(float(num_event_with_roi)/float(event_counter)*10000.))/100.
-average_num_roi_total = num_roi / float(event_counter)
-average_num_roi = num_roi / float(num_event_with_roi)
+if event_counter>0:
+    frac_event_with_roi = (int(float(num_event_with_roi)/float(event_counter)*10000.))/100.
+    average_num_roi_total = num_roi / float(event_counter)
+else:
+    frac_event_with_roi   = 0.0
+    average_num_roi_total = 0.0
+    
+if num_event_with_roi>0:
+    average_num_roi = num_roi / float(num_event_with_roi)
+else:
+    average_num_roi = 0.0
 
 print
 print '# events processed:',event_counter

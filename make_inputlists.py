@@ -47,8 +47,8 @@ if DATAFOLDER=="__unset__":
 #TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/extbnb/out_week082817/tagger"
 #LARCV_SOURCE =DATAFOLDER+"/comparison_samples/extbnb_wprecuts/supera"
 #TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/extbnb_wprecuts/out_week082817/tagger"
-LARCV_SOURCE =DATAFOLDER+"/comparison_samples/extbnb_wprecuts_reprocess/supera_p09"
-TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/extbnb_wprecuts_reprocess/out_week10132017/tagger_p09"
+LARCV_SOURCE =DATAFOLDER+"/comparison_samples/extbnb_wprecuts_reprocess/supera_p02"
+TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/extbnb_wprecuts_reprocess/out_week10132017/tagger_p02"
 
 #LARCV_SOURCE =DATAFOLDER+"/comparison_samples/corsika/supera_wpmtprecut"
 #TAGGER_SOURCE=DATAFOLDER+"/comparison_samples/corsika/out_week082817/tagger"

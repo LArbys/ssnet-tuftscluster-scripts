@@ -11,12 +11,12 @@ DAVIS="/media/data/larbys/data"
 DATAFOLDER="__unset__"
 try:
     LOCAL_MACHINE=os.popen("uname -n").readlines()[0].strip()
-    if LOCAL_MACHINE not in ["mccaffrey","login001","davis"]:
+    if LOCAL_MACHINE not in ["mccaffrey","login001","davis","pgpu01","pgpu02"]:
         raise RuntimeError("unrecognized machine")
 
     if LOCAL_MACHINE=="mccaffrey":
         DATAFOLDER=MCCAFFREY
-    elif LOCAL_MACHINE=="login001":
+    elif LOCAL_MACHINE in ["login001","pgpu01","pgpu02"]:
         DATAFOLDER=TUFTS
     elif LOCAL_MACHINE=="davis":
         DATAFOLDER=DAVIS
@@ -40,7 +40,7 @@ if DATAFOLDER=="__unset__":
 #SSNET_FOLDER=DATAFOLDER+"/comparison_samples/extbnb_wprecuts/out_week082817/ssnet_mcc8"
 #SSNET_FOLDER=DATAFOLDER+"/comparison_samples/corsika/out_week082817/ssnet_mcc8"
 #SSNET_FOLDER=DATAFOLDER+"/bnbdata_5e19/out_week082817/ssnet_small_mcc8"
-SSNET_FOLDER=DATAFOLDER+"/comparison_samples/extbnb_wprecuts_reprocess/out_week10132017/ssnet_p09"
+SSNET_FOLDER=DATAFOLDER+"/comparison_samples/extbnb_wprecuts_reprocess/out_week10132017/ssnet_p08"
 
 
 files = os.listdir(SSNET_FOLDER)

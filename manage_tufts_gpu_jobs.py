@@ -10,7 +10,7 @@ from choose_gpu import pick_gpu
 CONTAINER = sys.argv[1]
 WORKDIR = sys.argv[2]
 
-waitsec = 15
+waitsec = 10
 MAX_NUM_JOBS=6
 MAX_JOBS_PER_GPU=3
 
